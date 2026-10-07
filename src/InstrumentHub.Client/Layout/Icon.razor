@@ -1,0 +1,36 @@
+<svg width="@Size" height="@Size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="@Path" /></svg>
+@code {
+[Parameter] public string Name {get;set;}="grid";
+[Parameter] public int Size {get;set;}=18;
+string Path=>Name switch {
+"grid"=>"M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z",
+"box"=>"M12 3l9 5v9l-9 5-9-5V8z M3 8l9 5 9-5 M12 13v9 M7.5 5.5l9 5",
+"calendar"=>"M4 5h16v16H4z M8 3v4 M16 3v4 M4 10h16 M8 14h2 M14 14h2 M8 17h2",
+"wrench"=>"M14 6a5 5 0 0 1 6-3l-4 4 1 3 3 1 3-4a5 5 0 0 1-7 6L7 21a2.8 2.8 0 0 1-4-4l9-9a5 5 0 0 1 2-2z",
+"file"=>"M5 3h9l5 5v13H5z M14 3v6h5 M8 13h8 M8 17h6",
+"shield"=>"M12 3l8 3v6c0 5-8 10-8 10S4 17 4 12V6z M8 12l3 3 5-6",
+"search"=>"M16 16l5 5 M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0",
+"bell"=>"M5 17h14l-2-3V9a5 5 0 0 0-10 0v5z M10 21h4 M12 2v2",
+"plus"=>"M12 5v14 M5 12h14",
+"chevron"=>"M9 5l7 7-7 7",
+"download"=>"M12 3v12 M7 10l5 5 5-5 M4 16v5h16v-5",
+"upload"=>"M12 16V3 M7 8l5-5 5 5 M4 16v5h16v-5",
+"filter"=>"M3 6h18 M3 12h18 M3 18h18 M7 3v6 M16 9v6 M10 15v6",
+"pin"=>"M19 10c0 5-7 12-7 12S5 15 5 10a7 7 0 1 1 14 0 M15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+"alert"=>"M12 3l10 18H2z M12 9v5 M12 17v.1",
+"clock"=>"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0 M12 6v6l4 2",
+"check"=>"M5 12l4 4L19 6",
+"close"=>"M6 6l12 12 M6 18L18 6",
+"menu"=>"M3 6h18 M3 12h18 M3 18h18",
+"settings"=>"M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8 M9 3h6l1 3 3 1 2 5-2 5-3 1-1 3H9l-1-3-3-1-2-5 2-5 3-1z",
+"help"=>"M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0 M9 8a3 3 0 1 1 4 3l-1 2 M12 17v.1",
+"chart"=>"M4 21V11 M10 21V3 M16 21v-8 M22 21V7",
+"pulse"=>"M2 12h5l3-8 4 16 3-8h5",
+"scale"=>"M12 3v18 M5 21h14 M4 7h16 M6 7l-4 7h8z M18 7l-4 7h8z",
+"flask"=>"M9 3h6 M10 3v7L5 19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l-5-9V3 M8 15h8",
+"gauge"=>"M3 18a10 10 0 1 1 18 0 M12 14l5-5 M5 11h1 M12 5v1 M18 11h1 M10 18h4",
+"bolt"=>"M13 2L3 14h8l-1 8 11-12h-8z",
+"thermometer"=>"M10 14V5a2 2 0 0 1 4 0v9a5 5 0 1 1-4 0 M12 10v8",
+"logout"=>"M9 3H3v18h6 M9 12h13 M17 7l5 5-5 5",
+_=>"M4 4h16v16H4z"};
+}

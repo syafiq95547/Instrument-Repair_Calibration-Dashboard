@@ -1,0 +1,17 @@
+using InstrumentHub.Client;
+using InstrumentHub.Client.Services;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+var builder=WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<Session>();
+builder.Services.AddScoped<AuthenticationStateProvider>(s=>s.GetRequiredService<Session>());
+builder.Services.AddTransient<JwtHandler>();
+builder.Services.AddScoped(s=>new HttpClient(new JwtHandler(s.GetRequiredService<Session>()) { InnerHandler=new HttpClientHandler() }) { BaseAddress=new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped<ApiClient>();
+var host=builder.Build();
+await host.Services.GetRequiredService<Session>().Initialize(builder.HostEnvironment.BaseAddress);
+await host.RunAsync();

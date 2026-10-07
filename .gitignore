@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+.vscode/
+App_Data/
+*.user
+*.log
+.env
+artifacts/

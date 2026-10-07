@@ -1,0 +1,32 @@
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject Session Session
+<div class="app-shell">
+@if (mobileOpen) { <button class="sidebar-backdrop" aria-label="Close navigation" @onclick="()=>mobileOpen=false"></button> }
+<aside class="sidebar @(mobileOpen ? "open" : "")">
+<a class="brand" href="/"><span class="brand-mark"><Icon Name="pulse" Size="21" /></span> instrument<span class="brand-light">hub</span><span class="brand-dot">.</span></a>
+<div class="workspace-card"><span class="workspace-avatar">NL</span><div><strong>Northstar Labs</strong><small>Instrument management</small></div><span class="workspace-chevron">⌃<br />⌄</span></div>
+<div class="nav-caption">WORKSPACE</div>
+<nav aria-label="Main navigation" @onclick="()=>mobileOpen=false">
+<NavLink href="/" Match="NavLinkMatch.All"><Icon Name="grid" /><span>Dashboard</span></NavLink>
+<NavLink href="/inventory"><Icon Name="box" /><span>Inventory</span></NavLink>
+<NavLink href="/calibrations"><Icon Name="gauge" /><span>Calibration Schedule</span></NavLink>
+<NavLink href="/repairs"><Icon Name="wrench" /><span>Repair Logs</span></NavLink>
+<NavLink href="/certificates"><Icon Name="file" /><span>Certificates</span></NavLink>
+</nav>
+<div class="sidebar-bottom"><div class="audit-card"><strong><Icon Name="shield" Size="15" /> Audit-ready, always.</strong><p>Your asset records and certificates,<br /> all in one place.</p><a href="/certificates">View certificates <span>→</span></a></div>
+<button class="sidebar-utility" @onclick='()=>Navigation.NavigateTo("/settings")'><Icon Name="settings" Size="17" />Settings & integrations</button>
+<a class="sidebar-utility" href="/help"><Icon Name="help" Size="17" />Help & support</a>
+<div class="profile"><span class="avatar">@Initials(Session.Name)</span><div><strong>@(string.IsNullOrEmpty(Session.Name) ? "Guest" : Session.Name)</strong><small>Lab administrator</small></div><button title="Sign out" aria-label="Sign out" @onclick="SignOut"><Icon Name="logout" Size="17" /></button></div></div>
+</aside>
+<div class="main-shell"><header class="topbar"><button class="mobile-menu icon-button" aria-label="Open navigation" @onclick="()=>mobileOpen=true"><Icon Name="menu" /></button><div class="breadcrumbs"><Icon Name="box" Size="15" /><span>Workspace</span><Icon Name="chevron" Size="12" /><strong>@Title</strong></div><div class="topbar-right"><form class="global-search" @onsubmit="Search" @onsubmit:preventDefault><Icon Name="search" Size="15" /><input aria-label="Search instruments" placeholder="Search assets, equipment…" @bind="query" /><kbd>↵</kbd></form><a class="notification icon-button" href="/calibrations?status=Overdue" aria-label="View overdue calibrations"><Icon Name="bell" /><i></i></a><span class="facility"><Icon Name="pin" Size="16" />Northstar facility</span></div></header>
+<main>@Body</main>
+<footer><span><i></i>InstrumentHub workspace <span class="footer-muted">· Time zone: UTC</span></span><span>Precision in every measurement.</span></footer>
+</div></div>
+@code {
+bool mobileOpen; string query="";
+string Title=>new Uri(Navigation.Uri).AbsolutePath switch { "/inventory"=>"Inventory", "/calibrations"=>"Calibration schedule", "/repairs"=>"Repair logs", "/certificates"=>"Certificates", "/settings"=>"Settings", "/help"=>"Help", _=>"Overview" };
+static string Initials(string name)=>string.Concat(name.Split(' ',StringSplitOptions.RemoveEmptyEntries).Take(2).Select(x=>x[0]));
+void Search()=>Navigation.NavigateTo("/inventory?q="+Uri.EscapeDataString(query));
+async Task SignOut(){ await Session.Logout(); Navigation.NavigateTo("/login"); }
+}

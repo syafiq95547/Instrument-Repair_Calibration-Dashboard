@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<PropertyGroup><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+<ItemGroup><ProjectReference Include="../InstrumentHub.Shared/InstrumentHub.Shared.csproj" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.10" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.10" PrivateAssets="all" />
+<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.10" /></ItemGroup><ItemGroup><Content Update="packages.lock.json" CopyToPublishDirectory="Never" CopyToOutputDirectory="Never" /></ItemGroup></Project>

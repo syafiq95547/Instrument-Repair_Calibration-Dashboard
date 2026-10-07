@@ -1,0 +1,13 @@
+@page "/login"
+@layout LoginLayout
+@inject Session Session
+@inject HttpClient Http
+@inject NavigationManager Navigation
+<PageTitle>Sign in · InstrumentHub</PageTitle>
+<div class="login-page"><div class="login-brand"><span class="brand-mark"><Icon Name="pulse" /></span> instrumenthub.</div><section class="login-card"><span class="eyebrow">WELCOME BACK</span><h1>Precision starts here.</h1><p>Sign in to manage your instruments, calibrations, and repairs.</p><EditForm Model="model" OnSubmit="Submit"><label>Email address<input type="email" autocomplete="username" required @bind="model.Email" /></label><label>Password<input type="password" autocomplete="current-password" required @bind="model.Password" /></label>@if(error is not null){<div class="error-message" role="alert">@error</div>}<button class="button primary" type="submit" disabled="@busy">@(busy ? "Signing in…" : "Sign in") <span>→</span></button></EditForm>@if(Session.DemoMode){<div class="demo-login"><strong>Explore the demo</strong><p>Sample data resets when the server restarts.</p><button class="button" @onclick="DemoLogin" disabled="@busy">Open demo dashboard</button></div>}</section><small>InstrumentHub · Instrument repair & calibration management</small></div>
+@code {
+LoginModel model=new(); string? error; bool busy;
+async Task Submit(){ busy=true; error=null; try{await Session.Login(Http,model.Email,model.Password); Navigation.NavigateTo("/");}catch(Exception e){error=e.Message;}finally{busy=false;} }
+async Task DemoLogin(){model.Email="admin@instrumenthub.local";model.Password="DemoCalibration!2026";await Submit();}
+sealed class LoginModel { public string Email {get;set;}="";public string Password {get;set;}=""; }
+}
