@@ -28,6 +28,8 @@ Screenshots: [desktop](docs/dashboard-desktop.png) · [mobile](docs/dashboard-mo
 
 The API serves the compiled Blazor client on the same origin. A JWT delegating message handler attaches the access token to API calls. The browser uses sessionStorage, so sign-in lasts for the current tab session; tokens expire after eight hours. All management endpoints require authentication. Production requires a configured administrator password hash and signing key; default demo credentials are limited to Development.
 
+The Blazor runtime, linker, and WebAssembly build pack are explicitly pinned to 8.0.31 to keep locked restores consistent across SDK patch installations. The requested Blazor component packages remain at 8.0.10.
+
 ## Run the demo
 
 Install the .NET 8 SDK. From the repository root:
